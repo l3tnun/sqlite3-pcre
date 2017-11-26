@@ -24,3 +24,5 @@ dist : clean
 
 clean :
 	-rm -f pcre.so
+	-rm -rf sqlite3-pcre-${VERSION}
+	-rm -f sqlite3-pcre-${VERSION}.tar.gz
