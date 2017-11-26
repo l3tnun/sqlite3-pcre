@@ -6,10 +6,14 @@ LIBS=$(shell pkg-config --libs libpcre)
 prefix=/usr
 
 .PHONY : install dist clean
+OS := $(shell uname)
 
 pcre.so : pcre.c
+ifeq ($(OS),Linux)
 	${CC} -shared -o $@ ${CFLAGS} -W -Werror pcre.c ${LIBS} -Wl,-z,defs
-
+else
+	${CC} -shared -o $@ ${CFLAGS} -W -Werror pcre.c ${LIBS} -lpcre
+endif
 install : pcre.so
 	${INSTALL} -pD -m755 pcre.so ${DESTDIR}${prefix}/lib/sqlite3/pcre.so
 
